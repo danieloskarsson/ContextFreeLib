@@ -5,10 +5,10 @@
  <body>
     <script src="randapp.js"></script> 
     <script src="contextfreegrammar.js"></script>
-    <h2>Distribution of nouns used</h2>
-    <p id="blobb">Testing</p>
+    <h2>20 random sentences</h2>
     <div><lable>Seed:</lable><input type="text" id="seedval" placeholder="1"><div>
     <textarea cols="80" rows="25" id="clobber"></textarea>
+    <h2>Distribution of nouns</h2>
     <canvas id="canv" height="300px" width="600px" style="border:1px solid red"></canvas>    
     <script>
         document.getElementById('clobber').value="";
@@ -28,24 +28,12 @@
                "distributionOfAdverbs":"uni-squared",
                "distributionOfDeterminers":"uni-squared",
                "distributionOfConjunctions":"uni-squared",
-               "distributionOfModals":"uni-sqared",
+               "distributionOfModals":"uni-squared",
                "randomSeed":seed
              });
              
         for(var i=0;i<20;i++){
             sentence=grammar.generateSentence();document.getElementById('clobber').value+=sentence;
         }
-        var result=new Array(grammar.noun.length).fill(0);;
-        var max=0;
-        var yMax=300;
-        for(var i=0;i<10000;i++){
-            let w=grammar.generateRandomNoun();
-            result[w]++;
-        }
-        var canvas=document.getElementById("canv");
-        var context=canvas.getContext("2d");
-        for(let i=0;i<grammar.noun.length;i++){
-            context.fillRect(i,yMax-result[grammar.noun[i]],1,1);
-        }        
     </script>
  </body>
