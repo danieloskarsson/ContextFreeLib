@@ -2,15 +2,28 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
+    <script src="randapp.js"></script> 
  		<script src="contextfreegrammar.js"></script> 
-
-		<title>grammar</title>
+    <script>
+    
+    function generator()
+    {
+        document.getElementById('clobber').value='';
+        var grammar=new ContextFreeGrammar();
+        for(var i=0;i<20;i++)
+        {
+            var sentence=grammar.generateSentence();
+            document.getElementById('clobber').value+=sentence;
+        }
+    }
+    </script>
+		<title>Generate 20 random sentencies</title>
 
 	</head>
 
 	<body>
- 	<p id="blobb">Testing</p>
+ 	<h2 id="blobb">Generate 20 random sentencies</h2>
 	<textarea cols="80" rows="25" id="clobber"></textarea>
-	<p><a href="#" onClick="document.getElementById('clobber').value='';for(var i=0;i<20;i++){sentence=generate_sentence(0.5,0.5,0.5,0.5,null,null,null,null,null,null,null);document.getElementById('clobber').value+=sentence;}">Generate scentences</a></p>
+	<div><button onclick="generator();">Generate scentences</button></div>
 	</body>
 </html>
