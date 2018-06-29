@@ -1,0 +1,51 @@
+<html>
+<head>
+ 
+ </head>
+ <body>
+    <script src="randapp.js"></script> 
+    <script src="contextfreegrammar.js"></script>
+    <h2>Distribution of nouns used</h2>
+    <p id="blobb">Testing</p>
+    <div><lable>Seed:</lable><input type="text" id="seedval" placeholder="1"><div>
+    <textarea cols="80" rows="25" id="clobber"></textarea>
+    <canvas id="canv" height="300px" width="600px" style="border:1px solid red"></canvas>    
+    <script>
+        document.getElementById('clobber').value="";
+        var sentence="";
+        var seed=document.getElementById('seedval').value; 
+        if(seed=="")seed=1;       
+        seed=parseInt(seed);
+        if(typeof(seed)==="NaN")seed=1;
+        var grammar=new ContextFreeGrammar({
+               "probabilityNounPhrase":0.5,
+               "probabilityVerbPhrase":0.5,
+               "probabilityDualAdjectives":0.5,
+               "probabilityStartAdjective":0.5,
+               "distributionOfNouns":"uni-squared",
+               "distributionOfVerbs":"uni-squared",
+               "distributionOfAdjectives":"uni-squared",
+               "distributionOfAdverbs":"uni-squared",
+               "distributionOfDeterminers":"uni-squared",
+               "distributionOfConjunctions":"uni-squared",
+               "distributionOfModals":"uni-sqared",
+               "randomSeed":seed
+             });
+             
+        for(var i=0;i<20;i++){
+            sentence=grammar.generateSentence();document.getElementById('clobber').value+=sentence;
+        }
+        var result=new Array(grammar.noun.length).fill(0);;
+        var max=0;
+        var yMax=300;
+        for(var i=0;i<10000;i++){
+            let w=grammar.generateRandomNoun();
+            result[w]++;
+        }
+        var canvas=document.getElementById("canv");
+        var context=canvas.getContext("2d");
+        for(let i=0;i<grammar.noun.length;i++){
+            context.fillRect(i,yMax-result[grammar.noun[i]],1,1);
+        }        
+    </script>
+ </body>
