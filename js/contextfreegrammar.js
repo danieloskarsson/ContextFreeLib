@@ -80,7 +80,7 @@ var ContextFreeGrammar=function(params)
     var distributionmodals = params.distributionOfModals;    
     
     if(typeof params.randomSeed === "undefined"){
-        params.randomSeed=1;
+        params.randomSeed=Math.floor(new Date() / 1000);;
     }
     var seed = params.randomSeed;    
       
