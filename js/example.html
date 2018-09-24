@@ -6,35 +6,44 @@
     <script src="contextfreegrammar.js"></script>
 
     <h2>20 random sentences</h2>
-    <div><label>Seed:</label><input type="text" id="seedval" placeholder="1"><div>
     <textarea cols="80" rows="25" id="clobber"></textarea>
-    <h2>Distribution of nouns</h2>
-    <canvas id="canv" height="300px" width="600px" style="border:1px solid red"></canvas>    
-    <script>
-        document.getElementById('clobber').value="";
-        var sentence="";
-        var seed=document.getElementById('seedval').value; 
-        if(seed=="")seed=1;       
-        seed=parseInt(seed);
-        if(typeof(seed)==="NaN")seed=1;
-        var grammar=new ContextFreeGrammar({
-               "probabilityNounPhrase":0.5,
-               "probabilityVerbPhrase":0.5,
-               "probabilityDualAdjectives":0.5,
-               "probabilityStartAdjective":0.5,
-               "distributionOfNouns":"uni-squared",
-               "distributionOfVerbs":"uni-squared",
-               "distributionOfAdjectives":"uni-squared",
-               "distributionOfAdverbs":"uni-squared",
-               "distributionOfDeterminers":"uni-squared",
-               "distributionOfConjunctions":"uni-squared",
-               "distributionOfModals":"uni-squared",
-               "randomSeed":seed
-             });
+    <div>
+        <label>Seed:</label><input type="number" id="seedval" value="42">
+        <button onclick="generator();">Generate scentences</button>
+    </div>
 
-        for(var i=0;i<20;i++){
-            sentence=grammar.generateSentence();document.getElementById('clobber').value+=sentence;
+    <script>
+        var clobber = document.getElementById('clobber');
+        var seed = document.getElementById('seedval');
+
+        var selectedSeed;
+        var grammar;
+
+        function generator(){
+            if (selectedSeed != seed.value) {
+                selectedSeed = seed.value;
+                grammar = new ContextFreeGrammar({
+                    "probabilityNounPhrase":0.5,
+                    "probabilityVerbPhrase":0.5,
+                    "probabilityDualAdjectives":0.5,
+                    "probabilityStartAdjective":0.5,
+                    "distributionOfNouns":"uni-squared",
+                    "distributionOfVerbs":"uni-squared",
+                    "distributionOfAdjectives":"uni-squared",
+                    "distributionOfAdverbs":"uni-squared",
+                    "distributionOfDeterminers":"uni-squared",
+                    "distributionOfConjunctions":"uni-squared",
+                    "distributionOfModals":"uni-squared",
+                    "randomSeed":selectedSeed
+                });
+            }
+            clobber.value=""
+            for(var i=0;i<20;i++){
+                clobber.value+=grammar.generateSentence();
+            }
         }
+
+        generator();
     </script>
 
 </body>
