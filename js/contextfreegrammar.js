@@ -199,7 +199,13 @@ var ContextFreeGrammar=function(params)
     	return sentence;
     }
 
-
+    this.generateText=function(numberOfSentences) {
+        var text = "";
+        for(var i = 0; i < numberOfSentences; i++) {
+            text += this.generateSentence();
+        }
+        return text;
+    }
 
     this.generateSentence=function() {
     	
